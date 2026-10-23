@@ -2338,8 +2338,7 @@ dependencies = [
 [[package]]
 name = "gpui-pre"
 version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34f61c1cfd36fc9c436af09308c963822ae27a45a84feb21a77ba5c9e051f1c0"
+source = "git+https://github.com/panzhifu/gpui-folio?rev=98af6be7fce9491e1dadd431bbddad69737b3b35#98af6be7fce9491e1dadd431bbddad69737b3b35"
 dependencies = [
  "accesskit",
  "anyhow",
@@ -2347,6 +2346,7 @@ dependencies = [
  "async-task",
  "backtrace",
  "bitflags 2.13.2",
+ "bytemuck",
  "chrono",
  "ctor",
  "derive_more",
@@ -2589,8 +2589,7 @@ dependencies = [
 [[package]]
 name = "gpui-pre-platform"
 version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbdbdac421178313fed8929fe95b42634a266a735079fcf03ff231bc2ccb2c5e"
+source = "git+https://github.com/panzhifu/gpui-folio?rev=98af6be7fce9491e1dadd431bbddad69737b3b35#98af6be7fce9491e1dadd431bbddad69737b3b35"
 dependencies = [
  "anyhow",
  "console_error_panic_hook",
@@ -2694,8 +2693,7 @@ dependencies = [
 [[package]]
 name = "gpui-pre-wgpu"
 version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b1cdb26c1503bf9662ee8fbc5ab0b44b2deeee4b5c12dc67491ba6fb5fc544b"
+source = "git+https://github.com/panzhifu/gpui-folio?rev=98af6be7fce9491e1dadd431bbddad69737b3b35#98af6be7fce9491e1dadd431bbddad69737b3b35"
 dependencies = [
  "anyhow",
  "bytemuck",

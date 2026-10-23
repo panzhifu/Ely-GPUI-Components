@@ -150,3 +150,30 @@ path = "examples/docs/i18n.rs"
 [[example]]
 name = "docs_render"
 path = "examples/docs/render.rs"
+
+# This fork builds against a patched GPUI snapshot instead of the crates.io one, so a host
+# app that already carries those patches resolves to a single `gpui` here too. The vendored
+# workspace is `panzhifu/gpui-folio`; its members keep the upstream package names and the
+# `0.3.9` version, so the three `gpui*` dependency lines above are untouched — a patch
+# changes where the package comes from, not what it is called or which version it satisfies.
+# What that copy adds over upstream: mesh primitives and scene capture in `gpui-pre`, the
+# cylinder page-curl pipeline in `gpui-pre-wgpu`, and explicit `current_platform` arms for
+# `target_env = "ohos"` / `target_os = "android"` / `target_os = "ios"` in
+# `gpui-pre-platform` (upstream leaves those triples unhandled, which makes the crate fail
+# to compile for any consumer that depends on the facade unconditionally — i.e. this one).
+# `gpui-pre-web` is not vendored there and keeps coming from crates.io.
+#
+# Bump `rev` together with the host app's own pins; `gpui-pre`, `gpui-pre-wgpu` and
+# `gpui-pre-platform` must be the same commit, since they are three members of one workspace.
+# Patching only the first and third does not compile: the vendored `gpui-pre` adds
+# `PrimitiveBatch::PageCurlMeshes`, and the crates.io `gpui-pre-wgpu` matches that enum
+# exhaustively, so it fails with E0004 (non-exhaustive patterns) on desktop. Android escapes
+# that only because `gpui-pre-platform` declares its `gpui_wgpu` dependency under
+# `cfg(all(target_os = "linux", not(target_env = "ohos")))`, so the renderer never enters the
+# graph there.
+[patch.crates-io]
+gpui-pre = { git = "https://github.com/panzhifu/gpui-folio", rev = "98af6be7fce9491e1dadd431bbddad69737b3b35" }
+gpui-pre-wgpu = { git = "https://github.com/panzhifu/gpui-folio", rev = "98af6be7fce9491e1dadd431bbddad69737b3b35" }
+gpui-pre-platform = { git = "https://github.com/panzhifu/gpui-folio", rev = "98af6be7fce9491e1dadd431bbddad69737b3b35" }
+
+
